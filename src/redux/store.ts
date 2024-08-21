@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import companiesReducer from '../features/companies/companiesSlice';
+import companyReducer from './companySlice';
 
 export const store = configureStore({
   reducer: {
-    companies: companiesReducer,
+    companies: companyReducer,
   },
 });
 
-export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

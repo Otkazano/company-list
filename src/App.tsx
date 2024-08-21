@@ -1,19 +1,15 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import CompanyTable from './components/CompanyTable';
-import CompanyForm from './components/CompanyForm';
-import { Container } from '@mui/material';
+import CompanyList from './components/CompanyList/CompanyList';
+import Controls from './components/Controls/Controls';
+// import './App.scss';
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <Container>
-        <h1>Список компаний</h1>
-        <CompanyForm />
-        <CompanyTable />
-      </Container>
-    </Provider>
+    <div className="app">
+      <h1>Company List</h1>
+      <Controls />
+      <CompanyList />
+    </div>
   );
 };
 
