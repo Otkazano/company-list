@@ -18,9 +18,9 @@ const Controls: React.FC = () => {
 
   return (
     <div className={styles.controls}>
-      <button onClick={handleAddCompany}>Add Company</button>
+      <button onClick={handleAddCompany}>Добавить компанию</button>
       <button onClick={handleRemoveCompanies} disabled={selectedCompanies.length === 0}>
-        Remove Selected
+        Удалить компанию
       </button>
     </div>
   );

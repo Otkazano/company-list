@@ -12,20 +12,20 @@ const CompanyList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-        !isLoading
-      ) {
-        setIsLoading(true);
-        dispatch(loadMoreCompanies()).finally(() => setIsLoading(false));
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (
+  //       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+  //       !isLoading
+  //     ) {
+  //       setIsLoading(true);
+  //       dispatch(loadMoreCompanies()).finally(() => setIsLoading(false));
+  //     }
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [dispatch, isLoading]);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [dispatch, isLoading]);
 
   return (
     <div className={styles.companyList}>
@@ -33,7 +33,7 @@ const CompanyList: React.FC = () => {
       {companies.map((company) => (
         <CompanyRow key={company.id} company={company} />
       ))}
-      {isLoading && <div>Loading more companies...</div>}
+      {isLoading && <p>Загружаем больше компаний...</p>}
     </div>
   );
 };

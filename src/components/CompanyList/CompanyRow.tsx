@@ -26,22 +26,22 @@ export const CompanyRow: React.FC<CompanyRowProps> = ({ company }) => {
         checked={company.isSelected} 
         onChange={handleCheckboxChange} 
       />
-      <div
+      <p
         contentEditable
         suppressContentEditableWarning
         onBlur={(e) => handleFieldChange('name', e.currentTarget.textContent || '')}
         className={styles.name}
       >
         {company.name}
-      </div>
-      <div
+      </p>
+      <p
         contentEditable
         suppressContentEditableWarning
         onBlur={(e) => handleFieldChange('address', e.currentTarget.textContent || '')}
         className={styles.address}
       >
         {company.address}
-      </div>
+      </p>
     </div>
   );
 };

@@ -24,8 +24,7 @@ export const Header: React.FC = () => {
         checked={allSelected}
         onChange={handleSelectAllChange}
       />
-      <div>Company Name</div>
-      <div>Address</div>
+      <p>Выделить всё</p>
     </div>
   );
 };

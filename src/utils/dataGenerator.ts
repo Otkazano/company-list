@@ -1,14 +1,16 @@
 import { Company } from '../types/company';
+import { faker } from '@faker-js/faker';
 
 export const generateFakeCompanies = (count: number): Company[] => {
   const companies: Company[] = [];
   for (let i = 0; i < count; i++) {
     companies.push({
-      id: String(i + 1),
-      name: `Company ${i + 1}`,
-      address: `Address ${i + 1}`,
+      id: faker.string.uuid(),
+      name: faker.company.name(),
+      address: faker.location.streetAddress(),
       isSelected: false,
     });
   }
   return companies;
 };
+

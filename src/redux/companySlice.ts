@@ -8,17 +8,15 @@ interface CompanyState {
 }
 
 const initialState: CompanyState = {
-  companies: generateFakeCompanies(20),
+  companies: generateFakeCompanies(10),
   isLoading: false,
 };
 
-// Создайте асинхронное действие для загрузки дополнительных компаний
 export const loadMoreCompanies = createAsyncThunk(
   'companies/loadMoreCompanies',
   async () => {
-    // Имитация асинхронной операции
     const response = await new Promise<Company[]>((resolve) => {
-      setTimeout(() => resolve(generateFakeCompanies(20)), 1000);
+      setTimeout(() => resolve(generateFakeCompanies(10)), 1000);
     });
     return response;
   }
@@ -29,7 +27,7 @@ const companySlice = createSlice({
   initialState,
   reducers: {
     addCompany: (state) => {
-      state.companies.push({
+      state.companies.unshift({
         id: String(state.companies.length + 1),
         name: 'New Company',
         address: 'New Address',
