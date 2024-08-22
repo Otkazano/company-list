@@ -8,25 +8,22 @@ interface CompanyState {
 }
 
 const initialState: CompanyState = {
-  companies: generateFakeCompanies(10),
+  companies: generateFakeCompanies(25),
   isLoading: false,
 };
 
-export const loadMoreCompanies = createAsyncThunk(
-  'companies/loadMoreCompanies',
-  async () => {
-    const response = await new Promise<Company[]>((resolve) => {
-      setTimeout(() => resolve(generateFakeCompanies(10)), 1000);
-    });
-    return response;
-  }
-);
+export const loadMoreCompanies = createAsyncThunk('companies/loadMoreCompanies', async () => {
+  const response = await new Promise<Company[]>(resolve => {
+    setTimeout(() => resolve(generateFakeCompanies(10)), 1000);
+  });
+  return response;
+});
 
 const companySlice = createSlice({
   name: 'companies',
   initialState,
   reducers: {
-    addCompany: (state) => {
+    addCompany: state => {
       state.companies.unshift({
         id: String(state.companies.length + 1),
         name: 'New Company',
@@ -34,45 +31,45 @@ const companySlice = createSlice({
         isSelected: false,
       });
     },
-    removeCompanies: (state) => {
-      state.companies = state.companies.filter((company) => !company.isSelected);
+    removeCompanies: state => {
+      state.companies = state.companies.filter(company => !company.isSelected);
     },
     updateCompany: (
       state,
-      action: PayloadAction<{ id: string; field: 'name' | 'address'; value: string }>
+      action: PayloadAction<{ id: string; field: 'name' | 'address'; value: string }>,
     ) => {
-      const company = state.companies.find((c) => c.id === action.payload.id);
+      const company = state.companies.find(c => c.id === action.payload.id);
       if (company) {
         company[action.payload.field] = action.payload.value;
       }
     },
-    selectAll: (state) => {
-      state.companies.forEach((company) => {
+    selectAll: state => {
+      state.companies.forEach(company => {
         company.isSelected = true;
       });
     },
-    deselectAll: (state) => {
-      state.companies.forEach((company) => {
+    deselectAll: state => {
+      state.companies.forEach(company => {
         company.isSelected = false;
       });
     },
     toggleCompanySelection: (state, action: PayloadAction<string>) => {
-      const company = state.companies.find((c) => c.id === action.payload);
+      const company = state.companies.find(c => c.id === action.payload);
       if (company) {
         company.isSelected = !company.isSelected;
       }
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(loadMoreCompanies.pending, (state) => {
+      .addCase(loadMoreCompanies.pending, state => {
         state.isLoading = true;
       })
       .addCase(loadMoreCompanies.fulfilled, (state, action) => {
         state.companies.push(...action.payload);
         state.isLoading = false;
       })
-      .addCase(loadMoreCompanies.rejected, (state) => {
+      .addCase(loadMoreCompanies.rejected, state => {
         state.isLoading = false;
       });
   },

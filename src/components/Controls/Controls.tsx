@@ -18,8 +18,15 @@ const Controls: React.FC = () => {
 
   return (
     <div className={styles.controls}>
-      <button onClick={handleAddCompany}>Добавить компанию</button>
-      <button onClick={handleRemoveCompanies} disabled={selectedCompanies.length === 0}>
+      <button onClick={handleAddCompany} aria-label="Добавить новую компанию">
+        Добавить компанию
+      </button>
+      <button
+        onClick={handleRemoveCompanies}
+        disabled={selectedCompanies.length === 0}
+        aria-label="Удалить выбранные компании"
+        aria-disabled={selectedCompanies.length === 0}
+      >
         Удалить компанию
       </button>
     </div>

@@ -13,4 +13,3 @@ export const generateFakeCompanies = (count: number): Company[] => {
   }
   return companies;
 };
-

@@ -4,10 +4,15 @@ import { selectAll, deselectAll } from '../../redux/companySlice';
 import { selectCompanies } from '../../redux/selectors';
 import styles from './Header.module.scss';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  setScrollTurnedOn: (isScroll: boolean) => void;
+  scrollTurnedOn: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ setScrollTurnedOn, scrollTurnedOn }) => {
   const dispatch = useDispatch();
   const companies = useSelector(selectCompanies);
-  const allSelected = companies.every((company) => company.isSelected);
+  const allSelected = companies.every(company => company.isSelected);
 
   const handleSelectAllChange = () => {
     if (allSelected) {
@@ -19,12 +24,18 @@ export const Header: React.FC = () => {
 
   return (
     <div className={styles.header}>
-      <input
-        type="checkbox"
-        checked={allSelected}
-        onChange={handleSelectAllChange}
-      />
-      <p>Выделить всё</p>
+      <div className={styles.checkbox}>
+        <input type="checkbox" checked={allSelected} onChange={handleSelectAllChange} />
+        <p>Выделить всё</p>
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          setScrollTurnedOn(!scrollTurnedOn);
+        }}
+      >
+        {!scrollTurnedOn ? 'Включить' : 'Выключить'} автоподгрузку
+      </button>
     </div>
   );
 };

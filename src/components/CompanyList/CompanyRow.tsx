@@ -20,25 +20,24 @@ export const CompanyRow: React.FC<CompanyRowProps> = ({ company }) => {
   };
 
   return (
-    <div className={`${styles.row} ${company.isSelected ? styles.selected : ''}`}>
-      <input 
-        type="checkbox" 
-        checked={company.isSelected} 
-        onChange={handleCheckboxChange} 
-      />
+    <div className={`${styles.row} ${company.isSelected ? styles.selected : ''}`} role="row">
+      <input type="checkbox" checked={company.isSelected} onChange={handleCheckboxChange} />
       <p
+        id={`company-${company.id}`}
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => handleFieldChange('name', e.currentTarget.textContent || '')}
+        onBlur={e => handleFieldChange('name', e.currentTarget.textContent || '')}
         className={styles.name}
+        tabIndex={0}
       >
         {company.name}
       </p>
       <p
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => handleFieldChange('address', e.currentTarget.textContent || '')}
+        onBlur={e => handleFieldChange('address', e.currentTarget.textContent || '')}
         className={styles.address}
+        tabIndex={0}
       >
         {company.address}
       </p>

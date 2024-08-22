@@ -1,39 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectCompanies } from '../../redux/selectors';
 import { CompanyRow } from './CompanyRow';
 import { Header } from '../Header/Header';
-import { AppDispatch } from '../../redux/store';
 import styles from './CompanyList.module.scss';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
 import { loadMoreCompanies } from '../../redux/companySlice';
 
-const CompanyList: React.FC = () => {
+interface CompanyListProps {
+  setIsLoading: (isLoading: boolean) => void;
+  isLoading: boolean;
+}
+
+const CompanyList: React.FC<CompanyListProps> = ({ setIsLoading, isLoading }) => {
+  const [scrollTurnedOn, setScrollTurnedOn] = useState<boolean>(false);
   const companies = useSelector(selectCompanies);
   const dispatch = useDispatch<AppDispatch>();
-  const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (
-  //       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-  //       !isLoading
-  //     ) {
-  //       setIsLoading(true);
-  //       dispatch(loadMoreCompanies()).finally(() => setIsLoading(false));
-  //     }
-  //   };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
+        setIsLoading(true);
+        dispatch(loadMoreCompanies()).finally(() => setIsLoading(false));
+      }
+    };
+    if (scrollTurnedOn) {
+      window.addEventListener('scroll', handleScroll);
+    } else {
+      window.removeEventListener('scroll', handleScroll);
+    }
 
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [dispatch, isLoading]);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [dispatch, isLoading, scrollTurnedOn, setIsLoading]);
 
   return (
-    <div className={styles.companyList}>
-      <Header />
-      {companies.map((company) => (
-        <CompanyRow key={company.id} company={company} />
+    <div className={styles.companyList} role="table">
+      <Header setScrollTurnedOn={setScrollTurnedOn} scrollTurnedOn={scrollTurnedOn} />
+      {companies.map(company => (
+        <CompanyRow key={company.id} company={company} aria-label={`Компания ${company.name}`} />
       ))}
-      {isLoading && <p>Загружаем больше компаний...</p>}
     </div>
   );
 };
