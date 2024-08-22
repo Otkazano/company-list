@@ -2,6 +2,7 @@
   "name": "company-list",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://otkazano.github.io/company-list",
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
     "@reduxjs/toolkit": "^2.2.7",
@@ -22,7 +23,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -41,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
