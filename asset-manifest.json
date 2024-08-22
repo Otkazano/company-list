@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/company-list/static/css/main.ef6383dc.css",
+    "main.js": "/company-list/static/js/main.09038b0b.js",
+    "index.html": "/company-list/index.html",
+    "main.ef6383dc.css.map": "/company-list/static/css/main.ef6383dc.css.map",
+    "main.09038b0b.js.map": "/company-list/static/js/main.09038b0b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ef6383dc.css",
+    "static/js/main.09038b0b.js"
+  ]
+}
